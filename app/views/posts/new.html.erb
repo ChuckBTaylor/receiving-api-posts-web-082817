@@ -11,3 +11,21 @@
     <%= f.submit %>
   </div>
 <% end %>
+<script type="text/javascript" charset='utf-8'>
+$(function(){
+  $('form').submit(function(ev){
+    ev.preventDefault();
+    const userInput = {}
+    for (let i=0; i< ev.target.elements.length; i++){
+      if (ev.target.elements[i].id !== ""){
+        userInput[ev.target.elements[i].labels[0].innerText] = ev.target.elements[i].value
+      }
+    }
+    fetch(`http://localhost:3000/posts/`,{method: 'post', body: JSON.stringify({userInput}), headers: {'Content-Type':"application/json",Accepts:'application/json'}})
+    .then(res => res.json())
+    .then(json => console.log(json))
+
+
+  })
+})
+</script>
